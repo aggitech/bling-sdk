@@ -8,7 +8,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/integrmais/bling/bling"
+	"github.com/integrmais/bling"
 )
 
 type ProductService struct {

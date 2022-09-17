@@ -1,6 +1,6 @@
 package product
 
-import "github.com/integrmais/bling/bling"
+import "github.com/integrmais/bling"
 
 type ResponseModel struct {
 	Response struct {
