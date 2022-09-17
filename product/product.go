@@ -4,6 +4,7 @@ import (
 	"context"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"net/http"
 	"strings"
 	"time"
@@ -57,8 +58,13 @@ func HandlerProduct(response *http.Response) (ResponseModel, error) {
 	return products, nil
 }
 
-func (s *ProductService) GetProductById(ctx context.Context, productID int) (Product, error) {
-	url := bling.ProductUrl + bling.DefaultResponseType
+func (s *ProductService) GetProductById(ctx context.Context, productID string) (Product, error) {
+	url := fmt.Sprintf(
+		"%s/produto/%s/%s",
+		bling.DefaultUrl,
+		productID,
+		bling.DefaultResponseType,
+	)
 
 	req, err := http.NewRequestWithContext(ctx, http.MethodGet, url, nil)
 
