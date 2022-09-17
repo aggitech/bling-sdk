@@ -116,8 +116,6 @@ func (s *ProductService) GetByRange(ctx context.Context, startAt time.Time) ([]P
 
 	req.URL.RawQuery = q.Encode()
 
-	fmt.Println(req.URL.RawQuery, q)
-
 	res, err := s.Client.Do(req)
 	if err != nil {
 		return nil, err
