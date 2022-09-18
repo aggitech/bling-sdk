@@ -18,6 +18,8 @@ type ProductService struct {
 	Client *http.Client
 }
 
+var Page int
+
 func NewProductService(appKey string, c *http.Client) *ProductService {
 	return &ProductService{
 		AppKey: appKey,
@@ -91,8 +93,21 @@ func (s *ProductService) GetProductById(ctx context.Context, productID string) (
 	return p, nil
 }
 
-func (s *ProductService) GetByRange(ctx context.Context, startAt time.Time) (ResponseModel, error) {
-	url := bling.ProductsUrl + bling.DefaultResponseType
+func Next() {
+
+}
+
+func (s *ProductService) GetByRange(ctx context.Context, startAt time.Time, page int) (ResponseModel, error) {
+	if page <= 0 {
+		page = 1
+	}
+
+	url := fmt.Sprintf(
+		"%s/page=%d/%s",
+		bling.ProductsUrl,
+		page,
+		bling.DefaultResponseType,
+	)
 
 	by := internal.NormalizeDate(startAt)
 	at := internal.NormalizeDate(time.Now())
