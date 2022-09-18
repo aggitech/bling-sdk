@@ -93,10 +93,6 @@ func (s *ProductService) GetProductById(ctx context.Context, productID string) (
 	return p, nil
 }
 
-func Next() {
-
-}
-
 func (s *ProductService) GetByRange(ctx context.Context, startAt time.Time, page int) (ResponseModel, error) {
 	if page <= 0 {
 		page = 1
