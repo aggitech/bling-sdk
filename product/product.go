@@ -5,7 +5,6 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"io"
 	"net/http"
 	"strings"
 	"time"
@@ -44,10 +43,6 @@ func HandlerError(req ResponseModel) error {
 func HandlerResponse(res *http.Response) (ResponseModel, error) {
 	defer res.Body.Close()
 
-	body, _ := io.ReadAll(res.Body)
-
-	fmt.Println(string(body))
-
 	var response ResponseModel
 	err := json.NewDecoder(res.Body).Decode(&response)
 	if err != nil {
@@ -62,7 +57,7 @@ func HandlerResponse(res *http.Response) (ResponseModel, error) {
 	return response, nil
 }
 
-func (s *ProductService) GetProductById(ctx context.Context, productID string) (Product, error) {
+func (s *ProductService) GetProductById(ctx context.Context, productID string) (ResponseModel, error) {
 	url := fmt.Sprintf(
 		"%s/produto/%s/%s",
 		bling.DefaultUrl,
@@ -72,7 +67,7 @@ func (s *ProductService) GetProductById(ctx context.Context, productID string) (
 
 	req, err := http.NewRequestWithContext(ctx, http.MethodGet, url, nil)
 	if err != nil {
-		return Product{}, err
+		return ResponseModel{}, err
 	}
 
 	q := req.URL.Query()
@@ -85,18 +80,18 @@ func (s *ProductService) GetProductById(ctx context.Context, productID string) (
 
 	res, err := s.Client.Do(req)
 	if err != nil {
-		return Product{}, err
+		return ResponseModel{}, err
 	}
 
 	p, err := HandlerResponse(res)
 	if err != nil {
-		return Product{}, err
+		return ResponseModel{}, err
 	}
 
-	return p.Response.Products[0].Product, nil
+	return p, nil
 }
 
-func (s *ProductService) GetByRange(ctx context.Context, startAt time.Time) ([]Product, error) {
+func (s *ProductService) GetByRange(ctx context.Context, startAt time.Time) (ResponseModel, error) {
 	url := bling.ProductsUrl + bling.DefaultResponseType
 
 	by := internal.NormalizeDate(startAt)
@@ -104,7 +99,7 @@ func (s *ProductService) GetByRange(ctx context.Context, startAt time.Time) ([]P
 
 	req, err := http.NewRequestWithContext(ctx, http.MethodGet, url, nil)
 	if err != nil {
-		return nil, err
+		return ResponseModel{}, err
 	}
 
 	q := req.URL.Query()
@@ -118,18 +113,13 @@ func (s *ProductService) GetByRange(ctx context.Context, startAt time.Time) ([]P
 
 	res, err := s.Client.Do(req)
 	if err != nil {
-		return nil, err
+		return ResponseModel{}, err
 	}
 
 	p, err := HandlerResponse(res)
 	if err != nil {
-		return nil, err
+		return ResponseModel{}, err
 	}
 
-	var products []Product
-	for _, product := range p.Response.Products {
-		products = append(products, product.Product)
-	}
-
-	return products, nil
+	return p, nil
 }
