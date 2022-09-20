@@ -3,6 +3,7 @@ package product
 import (
 	"context"
 	"encoding/json"
+	"encoding/xml"
 	"errors"
 	"fmt"
 	"net/http"
@@ -75,7 +76,6 @@ func (s *ProductService) GetProductById(ctx context.Context, productID string) (
 	q := req.URL.Query()
 	q.Add("apikey", s.AppKey)
 	q.Add("imagem", "S")
-	q.Add("situacao", "A")
 	q.Add("tipo", "P")
 
 	req.URL.RawQuery = q.Encode()
@@ -116,9 +116,44 @@ func (s *ProductService) GetByRange(ctx context.Context, startAt time.Time, page
 	q := req.URL.Query()
 	q.Add("apikey", s.AppKey)
 	q.Add("imagem", "S")
-	q.Add("situacao", "A")
 	q.Add("tipo", "P")
 	q.Add("filters", fmt.Sprintf("dataAlteracao[%s TO %s]", by, at))
+
+	req.URL.RawQuery = q.Encode()
+
+	res, err := s.Client.Do(req)
+	if err != nil {
+		return ResponseModel{}, err
+	}
+
+	p, err := HandlerResponse(res)
+	if err != nil {
+		return ResponseModel{}, err
+	}
+
+	return p, nil
+}
+
+func (s *ProductService) Create(ctx context.Context, product Product) (ResponseModel, error) {
+	productXml, err := xml.Marshal(product)
+	if err != nil {
+		return ResponseModel{}, err
+	}
+
+	url := fmt.Sprintf(
+		"%s/produto%s",
+		bling.DefaultUrl,
+		bling.DefaultResponseType,
+	)
+
+	req, err := http.NewRequestWithContext(ctx, http.MethodPost, url, nil)
+	if err != nil {
+		return ResponseModel{}, err
+	}
+
+	q := req.URL.Query()
+	q.Add("apikey", s.AppKey)
+	q.Add("produto", string(productXml))
 
 	req.URL.RawQuery = q.Encode()
 
