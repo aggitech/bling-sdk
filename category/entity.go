@@ -3,9 +3,9 @@ package category
 import "github.com/integrmais/bling"
 
 type Category struct {
-	Id             int64  `json:"id"`
+	Id             string `json:"id"`
 	Descricao      string `json:"descricao"`
-	IdCategoriaPai int64  `json:"idCategoriaPai"`
+	IdCategoriaPai string `json:"idCategoriaPai"`
 }
 
 type ResponseModel struct {
