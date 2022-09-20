@@ -55,7 +55,7 @@ func HandlerError(req ResponseModel) error {
 }
 
 func (s *CategoryService) Get(ctx context.Context) (ResponseModel, error) {
-	url := bling.DefaultUrl + bling.CategorysUrl + bling.DefaultResponseType
+	url := bling.CategorysUrl + bling.DefaultResponseType
 
 	req, err := http.NewRequestWithContext(ctx, http.MethodGet, url, nil)
 	if err != nil {
