@@ -41,7 +41,8 @@ type Product struct {
 	Situacao              string   `json:"situacao" xml:"situacao"`
 	Unidade               string   `json:"unidade" xml:"unidade"`
 	Preco                 string   `json:"preco" xml:"preco"`
-	PrecoCusto            string   `json:"precoCusto" xml:"precoCusto"`
+	PrecoCusto            string   `json:"precoCusto" xml:"preco_custo"`
+	VlrUnit               string   `json:"vlr_unit" xml:"vlr_unit"`
 	DescricaoCurta        string   `json:"descricaoCurta" xml:"descricaoCurta"`
 	DescricaoComplementar string   `json:"descricaoComplementar" xml:"descricaoComplementar"`
 	DataInclusao          string   `json:"dataInclusao"  xml:",omitempty"`
@@ -62,8 +63,8 @@ type Product struct {
 	IDFabricante          string   `json:"idFabricante" xml:"idFabricante"`
 	Categoria             Category `json:"categoria"  xml:",omitempty"`
 	IDCategoria           string   `json:"idCategoria" xml:"idCategoria"`
-	PesoLiq               string   `json:"pesoLiq" xml:"pesoLiq"`
-	PesoBruto             string   `json:"pesoBruto" xml:"pesoBruto"`
+	PesoLiq               string   `json:"pesoLiq" xml:"peso_liq"`
+	PesoBruto             string   `json:"pesoBruto" xml:"peso_bruto"`
 	EstoqueMinimo         string   `json:"estoqueMinimo" xml:"estoqueMinimo"`
 	EstoqueMaximo         string   `json:"estoqueMaximo" xml:"estoqueMaximo"`
 	Gtin                  string   `json:"gtin" xml:"gtin"`
