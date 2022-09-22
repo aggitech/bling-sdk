@@ -21,9 +21,9 @@ type Category struct {
 }
 
 type Warehouse struct {
-	ID            string `json:"id"`
+	ID            string `json:"id" xml:"id,omitempty"`
 	Nome          string `json:"nome"`
-	Saldo         int    `json:"saldo"`
+	Saldo         int    `json:"saldo" xml:"estoque,omitempty"`
 	Desconsiderar string `json:"desconsiderar"`
 	SaldoVirtual  int    `json:"saldoVirtual"`
 }
@@ -89,5 +89,5 @@ type Product struct {
 		Warehouse `json:"deposito"`
 	} `json:"depositos"`
 	Deposito Warehouse `json:"deposito" xml:"deposito,omitempty"`
-	Imagens  Images    `json:"imagens" xml:"imagens,omitempty"`
+	Imagens  []Images  `json:"imagens" xml:"imagens,omitempty"`
 }
