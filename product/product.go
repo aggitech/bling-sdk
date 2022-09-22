@@ -118,6 +118,7 @@ func (s *ProductService) GetByRange(ctx context.Context, startAt time.Time, page
 	q := req.URL.Query()
 	q.Add("apikey", s.AppKey)
 	q.Add("imagem", "S")
+	q.Add("estoque", "S")
 	q.Add("tipo", "P")
 	q.Add("filters", fmt.Sprintf("dataAlteracao[%s TO %s]", by, at))
 

@@ -29,7 +29,7 @@ type Warehouse struct {
 }
 
 type Images struct {
-	Url string `json:"url" xml:"url"`
+	Url string `json:"link" xml:"url"`
 }
 
 type Product struct {
@@ -90,4 +90,5 @@ type Product struct {
 	} `json:"depositos"`
 	Deposito Warehouse `json:"deposito" xml:"deposito,omitempty"`
 	Imagens  []Images  `json:"imagens" xml:"imagens,omitempty"`
+	Image    []Images  `json:"imagem" xml:"image,omitempty"`
 }
