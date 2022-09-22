@@ -44,6 +44,12 @@ func HandlerError(req ResponseModel) error {
 }
 
 func HandlerResponse(res *http.Response) (ResponseModel, error) {
+	if res.StatusCode == http.StatusBadRequest {
+		return ResponseModel{}, errors.New(
+			fmt.Sprintf("Bad Request %d", res.StatusCode),
+		)
+	}
+
 	defer res.Body.Close()
 
 	var response ResponseModel
