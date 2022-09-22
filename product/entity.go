@@ -69,9 +69,9 @@ type Product struct {
 	EstoqueMaximo         string   `json:"estoqueMaximo" xml:"estoqueMaximo,omitempty"`
 	Gtin                  string   `json:"gtin" xml:"gtin,omitempty"`
 	GtinEmbalagem         string   `json:"gtinEmbalagem" xml:"gtinEmbalagem,omitempty"`
-	LarguraProduto        string   `json:"larguraProduto" xml:"larguraProduto,omitempty"`
-	AlturaProduto         string   `json:"alturaProduto" xml:"alturaProduto,omitempty"`
-	ProfundidadeProduto   string   `json:"profundidadeProduto" xml:"profundidadeProduto,omitempty"`
+	LarguraProduto        string   `json:"larguraProduto" xml:"largura,omitempty"`
+	AlturaProduto         string   `json:"alturaProduto" xml:"altura,omitempty"`
+	ProfundidadeProduto   string   `json:"profundidadeProduto" xml:"profundidade,omitempty"`
 	UnidadeMedida         string   `json:"unidadeMedida" xml:"unidadeMedida,omitempty"`
 	ItensPorCaixa         int      `json:"itensPorCaixa" xml:"itensPorCaixa,omitempty"`
 	Volumes               int      `json:"volumes" xml:"volumes,omitempty"`
