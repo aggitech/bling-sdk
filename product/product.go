@@ -45,12 +45,8 @@ func HandlerError(req ResponseModel) error {
 
 func HandlerResponse(res *http.Response) (ResponseModel, error) {
 	if res.StatusCode == http.StatusBadRequest {
-		return ResponseModel{}, errors.New(
-			fmt.Sprintf("Bad Request %d", res.StatusCode),
-		)
+		return ResponseModel{}, errors.New(fmt.Sprintf("Bad Request %d", res.StatusCode))
 	}
-
-	defer res.Body.Close()
 
 	var response ResponseModel
 	err := json.NewDecoder(res.Body).Decode(&response)
@@ -159,7 +155,7 @@ func (s *ProductService) Create(ctx context.Context, product Product) (ResponseM
 
 	q := req.URL.Query()
 	q.Add("apikey", s.AppKey)
-	q.Add("produto", string(productXml))
+	q.Add("xml", string(productXml))
 
 	req.URL.RawQuery = q.Encode()
 
