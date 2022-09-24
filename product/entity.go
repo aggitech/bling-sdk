@@ -15,6 +15,15 @@ type ResponseModel struct {
 	} `json:"retorno"`
 }
 
+type ResponseCreatorModel struct {
+	Response struct {
+		bling.ResponseErrorModel
+		Products []struct {
+			ProductCreator `json:"produto,omitempty"`
+		} `json:"produtos,omitempty"`
+	} `json:"retorno"`
+}
+
 type Category struct {
 	ID        string `json:"id"`
 	Descricao string `json:"descricao"`
@@ -26,6 +35,15 @@ type Warehouse struct {
 	Saldo         int    `json:"saldo" xml:"estoque,omitempty"`
 	Desconsiderar string `json:"desconsiderar"`
 	SaldoVirtual  int    `json:"saldoVirtual"`
+}
+
+type Variant struct {
+	Nome         string `json:"nome,omitempty" xml:"nome,omitempty"`
+	Codigo       string `json:"codigo,omitempty" xml:"codigo,omitempty"`
+	EstoqueAtual int    `json:"estoqueAtual,omitempty" xml:"estoqueAtual,omitempty"`
+	Depositos    []struct {
+		Deposito Warehouse `json:"depositos,omitempty" xml:"depositos,omitempty"`
+	} `json:"depositos,omitempty" xml:"depositos,omitempty"`
 }
 
 type Images struct {
@@ -87,7 +105,14 @@ type Product struct {
 	Depositos             []struct {
 		Warehouse `json:"deposito"`
 	} `json:"depositos"`
-	Deposito Warehouse `json:"deposito.omitempty" xml:"deposito,omitempty"`
-	Imagens  []Images  `xml:"imagens,omitempty"`
-	Image    []Images  `json:"imagem,omitempty" xml:"image,omitempty"`
+	Deposito  Warehouse `json:"deposito.omitempty" xml:"deposito,omitempty"`
+	Variacoes []struct {
+		Variacao Variant `json:"variacao,omitempty" xml:"variacao,omitempty"`
+	} `json:"variacoes,omitempty" xml:"variacoes,omitempty"`
+	Imagens []Images `json:"imagens,omitempty" xml:"imagens,omitempty"`
+	Image   []Images `json:"imagem,omitempty" xml:"image,omitempty"`
+}
+
+type ProductCreator struct {
+	ID string `json:"id,omitempty"`
 }

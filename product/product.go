@@ -83,6 +83,7 @@ func (s *ProductService) GetProductById(ctx context.Context, productID string) (
 	q := req.URL.Query()
 	q.Add("apikey", s.AppKey)
 	q.Add("imagem", "S")
+	q.Add("estoque", "S")
 	q.Add("tipo", "P")
 
 	req.URL.RawQuery = q.Encode()
@@ -142,10 +143,10 @@ func (s *ProductService) GetByRange(ctx context.Context, startAt time.Time, page
 	return p, nil
 }
 
-func (s *ProductService) Create(ctx context.Context, product Product) (ResponseModel, error) {
+func (s *ProductService) Create(ctx context.Context, product Product) (ResponseCreatorModel, error) {
 	productXml, err := xml.Marshal(product)
 	if err != nil {
-		return ResponseModel{}, err
+		return ResponseCreatorModel{}, err
 	}
 
 	url := fmt.Sprintf(
@@ -156,7 +157,7 @@ func (s *ProductService) Create(ctx context.Context, product Product) (ResponseM
 
 	req, err := http.NewRequestWithContext(ctx, http.MethodPost, url, nil)
 	if err != nil {
-		return ResponseModel{}, err
+		return ResponseCreatorModel{}, err
 	}
 
 	q := req.URL.Query()
@@ -167,13 +168,18 @@ func (s *ProductService) Create(ctx context.Context, product Product) (ResponseM
 
 	res, err := s.Client.Do(req)
 	if err != nil {
-		return ResponseModel{}, err
+		return ResponseCreatorModel{}, err
 	}
 
-	p, err := HandlerResponse(res)
+	var response ResponseCreatorModel
+	err = json.NewDecoder(res.Body).Decode(&response)
 	if err != nil {
-		return ResponseModel{}, err
+		body, _ := io.ReadAll(res.Body)
+
+		fmt.Println(string(body))
+
+		return ResponseCreatorModel{}, err
 	}
 
-	return p, nil
+	return response, nil
 }
