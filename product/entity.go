@@ -34,7 +34,7 @@ type Images struct {
 
 type Product struct {
 	XMLName               xml.Name `xml:"produto"`
-	ID                    string   `json:"id" xml:"id,omitempty"`
+	ID                    string   `json:"id,omitempty" xml:"id,omitempty"`
 	Codigo                string   `json:"codigo" xml:"codigo,omitempty"`
 	Descricao             string   `json:"descricao" xml:"descricao,omitempty"`
 	Tipo                  string   `json:"tipo" xml:"tipo,omitempty"`
@@ -88,7 +88,7 @@ type Product struct {
 	Depositos             []struct {
 		Warehouse `json:"deposito"`
 	} `json:"depositos"`
-	Deposito Warehouse `json:"deposito" xml:"deposito,omitempty"`
-	Imagens  []Images  `json:"imagens" xml:"imagens,omitempty"`
-	Image    []Images  `json:"imagem" xml:"image,omitempty"`
+	Deposito Warehouse `json:"deposito.omitempty" xml:"deposito,omitempty"`
+	Imagens  []Images  `json:"imagens,omitempty" xml:"imagens,omitempty"`
+	Image    []Images  `json:"imagem,omitempty" xml:"image,omitempty"`
 }
