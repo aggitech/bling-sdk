@@ -38,8 +38,10 @@ type Warehouse struct {
 }
 
 type Variant struct {
+	//XMLName      xml.Name `xml:"variacao"`
 	Nome         string `json:"nome,omitempty" xml:"nome,omitempty"`
 	Codigo       string `json:"codigo,omitempty" xml:"codigo,omitempty"`
+	VlrUnit      string `json:"vlr_unit,omitempty" xml:"vlr_unit,omitempty"`
 	EstoqueAtual int    `json:"estoqueAtual,omitempty" xml:"estoqueAtual,omitempty"`
 	Depositos    []struct {
 		Deposito Warehouse `json:"depositos,omitempty" xml:"depositos,omitempty"`
@@ -107,8 +109,8 @@ type Product struct {
 	} `json:"depositos"`
 	Deposito  Warehouse `json:"deposito.omitempty" xml:"deposito,omitempty"`
 	Variacoes []struct {
-		Variacao Variant `json:"variacao,omitempty" xml:"variacao,omitempty"`
-	} `json:"variacoes,omitempty" xml:"variacoes,omitempty"`
+		Variant `json:"variacao,omitempty" xml:"variacao,omitempty"`
+	} `json:"variacoes,omitempty" xml:"variacoes>variacao,omitempty"`
 	Imagens []Images `json:"imagens,omitempty" xml:"imagens,omitempty"`
 	Image   []Images `json:"imagem,omitempty" xml:"image,omitempty"`
 }
