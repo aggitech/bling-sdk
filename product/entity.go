@@ -34,7 +34,6 @@ type Images struct {
 
 type Product struct {
 	XMLName               xml.Name `xml:"produto"`
-	ID                    string   `json:"id,omitempty" xml:"id,omitempty"`
 	Codigo                string   `json:"codigo" xml:"codigo,omitempty"`
 	Descricao             string   `json:"descricao" xml:"descricao,omitempty"`
 	Tipo                  string   `json:"tipo" xml:"tipo,omitempty"`
