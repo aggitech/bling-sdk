@@ -39,11 +39,12 @@ type Warehouse struct {
 
 type Variant struct {
 	//XMLName      xml.Name `xml:"variacao"`
-	Nome         string `json:"nome,omitempty" xml:"nome,omitempty"`
-	Codigo       string `json:"codigo,omitempty" xml:"codigo,omitempty"`
-	VlrUnit      string `json:"vlr_unit,omitempty" xml:"vlr_unit,omitempty"`
-	EstoqueAtual int    `json:"estoqueAtual,omitempty" xml:"estoqueAtual,omitempty"`
-	Depositos    []struct {
+	Nome           string `json:"nome,omitempty" xml:"nome,omitempty"`
+	Codigo         string `json:"codigo,omitempty" xml:"codigo,omitempty"`
+	VlrUnit        string `json:"vlr_unit,omitempty" xml:"vlr_unit,omitempty"`
+	EstoqueAtual   int    `json:"estoqueAtual,omitempty" xml:"estoque,omitempty"`
+	ClonarDadosPai string `json:"clonarDadosPai,omitempty" xml:"clonarDadosPai,omitempty"`
+	Depositos      []struct {
 		Deposito Warehouse `json:"depositos,omitempty" xml:"depositos,omitempty"`
 	} `json:"depositos,omitempty" xml:"depositos,omitempty"`
 }
