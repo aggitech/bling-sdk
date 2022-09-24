@@ -114,5 +114,5 @@ type Product struct {
 }
 
 type ProductCreator struct {
-	ID string `json:"id,omitempty"`
+	Codigo string `json:"codigo,omitempty"`
 }
