@@ -6,6 +6,7 @@ import (
 	"encoding/xml"
 	"errors"
 	"fmt"
+	"io"
 	"net/http"
 	"strings"
 	"time"
@@ -51,6 +52,10 @@ func HandlerResponse(res *http.Response) (ResponseModel, error) {
 	var response ResponseModel
 	err := json.NewDecoder(res.Body).Decode(&response)
 	if err != nil {
+		body, _ := io.ReadAll(res.Body)
+
+		fmt.Println(string(body))
+
 		return ResponseModel{}, err
 	}
 

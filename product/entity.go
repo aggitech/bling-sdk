@@ -88,6 +88,6 @@ type Product struct {
 		Warehouse `json:"deposito"`
 	} `json:"depositos"`
 	Deposito Warehouse `json:"deposito.omitempty" xml:"deposito,omitempty"`
-	Imagens  []Images  `json:"imagens,omitempty" xml:"imagens,omitempty"`
+	Imagens  []Images  `xml:"imagens,omitempty"`
 	Image    []Images  `json:"imagem,omitempty" xml:"image,omitempty"`
 }
