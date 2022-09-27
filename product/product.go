@@ -49,6 +49,10 @@ func HandlerResponse(res *http.Response) (ResponseModel, error) {
 		return ResponseModel{}, errors.New(fmt.Sprintf("Bad Request %d", res.StatusCode))
 	}
 
+	if res.StatusCode == http.StatusTooManyRequests {
+		return ResponseModel{}, errors.New(fmt.Sprintf("Too Many Requests %d", res.StatusCode))
+	}
+
 	var response ResponseModel
 	err := json.NewDecoder(res.Body).Decode(&response)
 	if err != nil {
