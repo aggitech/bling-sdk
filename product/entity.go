@@ -112,8 +112,10 @@ type Product struct {
 	Variacoes []struct {
 		Variant `json:"variacao,omitempty" xml:"variacao,omitempty"`
 	} `json:"variacoes,omitempty" xml:"variacoes>variacao,omitempty"`
-	Imagens []Images `json:"imagens,omitempty" xml:"imagens,omitempty"`
-	Image   []Images `json:"imagem,omitempty" xml:"image,omitempty"`
+	Imagens struct {
+		Url []string `xml:"url,omitempty"`
+	} `json:"imagens,omitempty" xml:"imagens,omitempty"`
+	Image []Images `json:"imagem,omitempty" xml:"image,omitempty"`
 }
 
 type ProductCreator struct {
