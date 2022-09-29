@@ -59,7 +59,7 @@ type Product struct {
 	Descricao             string   `json:"descricao" xml:"descricao,omitempty"`
 	Tipo                  string   `json:"tipo" xml:"tipo,omitempty"`
 	Situacao              string   `json:"situacao" xml:"situacao,omitempty"`
-	Unidade               string   `json:"unidade" xml:"unidade,omitempty"`
+	Unidade               string   `json:"unidade" xml:"un,omitempty"`
 	Preco                 string   `json:"preco" xml:"preco,omitempty"`
 	PrecoCusto            string   `json:"precoCusto" xml:"preco_custo,omitempty"`
 	VlrUnit               string   `xml:"vlr_unit,omitempty"`
