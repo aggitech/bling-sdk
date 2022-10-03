@@ -153,6 +153,8 @@ func (s *ProductService) Create(ctx context.Context, product Product) (ResponseC
 		return ResponseCreatorModel{}, err
 	}
 
+	fmt.Println(string(productXml))
+
 	url := fmt.Sprintf(
 		"%s/produto%s",
 		bling.DefaultUrl,
@@ -175,12 +177,13 @@ func (s *ProductService) Create(ctx context.Context, product Product) (ResponseC
 		return ResponseCreatorModel{}, err
 	}
 
-	var response ResponseCreatorModel
-	err = json.NewDecoder(res.Body).Decode(&response)
-	if err != nil {
-		body, _ := io.ReadAll(res.Body)
+	defer res.Body.Close()
 
-		fmt.Println(string(body))
+	b, _ := io.ReadAll(res.Body)
+
+	var response ResponseCreatorModel
+	if err := json.Unmarshal(b, &response); err != nil {
+		fmt.Println(string(b))
 
 		return ResponseCreatorModel{}, err
 	}
