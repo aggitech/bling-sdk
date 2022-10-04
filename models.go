@@ -1,7 +1,7 @@
 package bling
 
 type ResponseErrorModel struct {
-	Errors []struct {
+	Errors struct {
 		Error ErrorModel `json:"erro,omitempty"`
 	} `json:"erros,omitempty"`
 }

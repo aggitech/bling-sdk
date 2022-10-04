@@ -8,7 +8,6 @@ import (
 	"fmt"
 	"io"
 	"net/http"
-	"strings"
 	"time"
 
 	"github.com/integrmais/bling"
@@ -30,17 +29,8 @@ func NewProductService(appKey string, c *http.Client) *ProductService {
 }
 
 func HandlerError(req ResponseModel) error {
-	if len(req.Response.Errors) == 0 {
-		return nil
-	}
-
-	reqErrors := []string{}
-	for _, e := range req.Response.Errors {
-		reqErrors = append(reqErrors, e.Error.Message)
-	}
-
 	return errors.New(
-		strings.Join(reqErrors, ""),
+		req.Response.Errors.Error.Message,
 	)
 }
 

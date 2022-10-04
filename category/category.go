@@ -5,7 +5,6 @@ import (
 	"encoding/json"
 	"errors"
 	"net/http"
-	"strings"
 
 	"github.com/integrmais/bling"
 )
@@ -40,17 +39,8 @@ func HandlerResponse(res *http.Response) (ResponseModel, error) {
 }
 
 func HandlerError(req ResponseModel) error {
-	if len(req.Response.Errors) == 0 {
-		return nil
-	}
-
-	reqErrors := []string{}
-	for _, e := range req.Response.Errors {
-		reqErrors = append(reqErrors, e.Error.Message)
-	}
-
 	return errors.New(
-		strings.Join(reqErrors, ""),
+		req.Response.Errors.Error.Message,
 	)
 }
 
