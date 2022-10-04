@@ -29,6 +29,10 @@ func NewProductService(appKey string, c *http.Client) *ProductService {
 }
 
 func HandlerError(req ResponseModel) error {
+	if req.Response.Errors.Error.Code == 0 {
+		return nil
+	}
+
 	return errors.New(
 		req.Response.Errors.Error.Message,
 	)
