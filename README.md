@@ -1,3 +1,1 @@
 # Bling
-
-Aplicação de integração
