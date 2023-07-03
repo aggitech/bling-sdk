@@ -10,8 +10,8 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/integrmais/bling"
-	"github.com/integrmais/bling/internal"
+	"github.com/aggitech/bling-sdk"
+	"github.com/aggitech/bling-sdk/internal"
 )
 
 type ProductService struct {
@@ -21,7 +21,7 @@ type ProductService struct {
 
 var Page int
 
-func NewProductService(appKey string, c *http.Client) *ProductService {
+func NewBlingProductService(appKey string, c *http.Client) *ProductService {
 	return &ProductService{
 		AppKey: appKey,
 		Client: c,
@@ -40,11 +40,11 @@ func HandlerError(req ResponseModel) error {
 
 func HandlerResponse(res *http.Response) (ResponseModel, error) {
 	if res.StatusCode == http.StatusBadRequest {
-		return ResponseModel{}, errors.New(fmt.Sprintf("Bad Request %d", res.StatusCode))
+		return ResponseModel{}, fmt.Errorf("bad request %d", res.StatusCode)
 	}
 
 	if res.StatusCode == http.StatusTooManyRequests {
-		return ResponseModel{}, errors.New(fmt.Sprintf("Too Many Requests %d", res.StatusCode))
+		return ResponseModel{}, fmt.Errorf("too many requests %d", res.StatusCode)
 	}
 
 	var response ResponseModel
@@ -147,8 +147,6 @@ func (s *ProductService) Create(ctx context.Context, product Product) (ResponseC
 		return ResponseCreatorModel{}, err
 	}
 
-	fmt.Println(string(productXml))
-
 	url := fmt.Sprintf(
 		"%s/produto%s",
 		bling.DefaultUrl,
@@ -177,8 +175,6 @@ func (s *ProductService) Create(ctx context.Context, product Product) (ResponseC
 
 	var response ResponseCreatorModel
 	if err := json.Unmarshal(b, &response); err != nil {
-		fmt.Println(string(b))
-
 		return ResponseCreatorModel{}, err
 	}
 

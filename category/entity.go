@@ -1,6 +1,6 @@
 package category
 
-import "github.com/integrmais/bling"
+import "github.com/aggitech/bling-sdk"
 
 type Category struct {
 	Id             string `json:"id"`

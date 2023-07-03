@@ -3,7 +3,7 @@ package product
 import (
 	"encoding/xml"
 
-	"github.com/integrmais/bling"
+	"github.com/aggitech/bling-sdk"
 )
 
 type ResponseModel struct {

@@ -1,3 +1,3 @@
-module github.com/integrmais/bling
+module github.com/aggitech/bling-sdk
 
 go 1.19

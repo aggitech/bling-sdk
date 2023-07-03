@@ -6,7 +6,7 @@ import (
 	"errors"
 	"net/http"
 
-	"github.com/integrmais/bling"
+	"github.com/aggitech/bling-sdk"
 )
 
 type CategoryService struct {
@@ -14,7 +14,7 @@ type CategoryService struct {
 	Client *http.Client
 }
 
-func NewCategoryService(appKey string, c *http.Client) *CategoryService {
+func NewBlingCategoryService(appKey string, c *http.Client) *CategoryService {
 	return &CategoryService{
 		AppKey: appKey,
 		Client: c,
