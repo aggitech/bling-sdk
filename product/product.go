@@ -8,6 +8,7 @@ import (
 	"fmt"
 	"io"
 	"net/http"
+	"strings"
 	"time"
 
 	"github.com/aggitech/bling-sdk"
@@ -29,13 +30,16 @@ func NewBlingProductService(appKey string, c *http.Client) *ProductService {
 }
 
 func HandlerError(req ResponseModel) error {
-	if req.Response.Errors.Error.Code == 0 {
+	if req.Response.Errors[0].Error.Code == 0 {
 		return nil
 	}
 
-	return errors.New(
-		req.Response.Errors.Error.Message,
-	)
+	var errMessages []string
+	for _, err := range req.Response.Errors {
+		errMessages = append(errMessages, err.Error.Message)
+	}
+
+	return errors.New(strings.Join(errMessages, "\n"))
 }
 
 func HandlerResponse(res *http.Response) (ResponseModel, error) {

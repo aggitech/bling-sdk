@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"errors"
 	"net/http"
+	"strings"
 
 	"github.com/aggitech/bling-sdk"
 )
@@ -39,13 +40,16 @@ func HandlerResponse(res *http.Response) (ResponseModel, error) {
 }
 
 func HandlerError(req ResponseModel) error {
-	if req.Response.Errors.Error.Code == 0 {
+	if req.Response.Errors[0].Error.Code == 0 {
 		return nil
 	}
 
-	return errors.New(
-		req.Response.Errors.Error.Message,
-	)
+	var errMessages []string
+	for _, err := range req.Response.Errors {
+		errMessages = append(errMessages, err.Error.Message)
+	}
+
+	return errors.New(strings.Join(errMessages, "\n"))
 }
 
 func (s *CategoryService) Get(ctx context.Context) (ResponseModel, error) {
